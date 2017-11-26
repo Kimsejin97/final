@@ -1,0 +1,17 @@
+.content= create.content
+.tags.badges
+  each tag in create.tags
+    span.badge.badge-phill.badge-secondary= tag
+    |
+.row
+  .col-sm
+    .numbers.
+      #[span.number.num-votes= create.numLikes] likes,
+      #[span.number.num-answers= create.numAnswers] answers,
+      #[span.number.num-views= create.numReads] reads
+  .col-sm
+    .author
+      | asked on #{moment(create.createdAt).format('YYYY-MM-DD')}
+      if create.author
+        |
+        | by #[a(href=`/users/${create.author.id}`)= create.author.name]
