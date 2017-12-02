@@ -28,21 +28,21 @@ router.get('/', catchErrors(async (req, res, next) => {
       {content: {'$regex': term, '$options': 'i'}}
     ]};
   }
-  const events = await Question.paginate(query, {
+  const questions = await Question.paginate(query, {
     sort: {createdAt: -1},
     populate: 'author',
     page: page, limit: limit
   });
-  res.render('events/index', {events: events, term: term, query: req.query});
+  res.render('questions/index', {questions: questions, term: term, query: req.query});
 }));
 
 router.get('/new', needAuth, (req, res, next) => {
-  res.render('events/new', {question: {}});
+  res.render('questions/new', {question: {}});
 });
 
 router.get('/:id/edit', needAuth, catchErrors(async (req, res, next) => {
   const question = await Question.findById(req.params.id);
-  res.render('events/edit', {question: question});
+  res.render('questions/edit', {question: question});
 }));
 
 router.get('/:id', catchErrors(async (req, res, next) => {
@@ -51,7 +51,7 @@ router.get('/:id', catchErrors(async (req, res, next) => {
   question.numReads++;    // TODO: 동일한 사람이 본 경우에 Read가 증가하지 않도록???
 
   await question.save();
-  res.render('events/show', {question: question, answers: answers});
+  res.render('questions/show', {question: question, answers: answers});
 }));
 
 router.put('/:id', catchErrors(async (req, res, next) => {
@@ -63,17 +63,18 @@ router.put('/:id', catchErrors(async (req, res, next) => {
   }
   question.title = req.body.title;
   question.content = req.body.content;
+  question.place = req.body.place;
   question.tags = req.body.tags.split(" ").map(e => e.trim());
 
   await question.save();
   req.flash('success', 'Successfully updated');
-  res.redirect('/events');
+  res.redirect('/questions');
 }));
 
 router.delete('/:id', needAuth, catchErrors(async (req, res, next) => {
   await Question.findOneAndRemove({_id: req.params.id});
   req.flash('success', 'Successfully deleted');
-  res.redirect('/events');
+  res.redirect('/questions');
 }));
 
 router.post('/', needAuth, catchErrors(async (req, res, next) => {
@@ -86,7 +87,7 @@ router.post('/', needAuth, catchErrors(async (req, res, next) => {
   });
   await question.save();
   req.flash('success', 'Successfully posted');
-  res.redirect('/events');
+  res.redirect('/questions');
 }));
 
 router.post('/:id/answers', needAuth, catchErrors(async (req, res, next) => {

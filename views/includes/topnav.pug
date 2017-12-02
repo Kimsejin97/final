@@ -1,14 +1,12 @@
 .header.clearfix
   nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top
     .container
-      a.navbar-brand(href="/") Event
+      a.navbar-brand(href="/") MJ Overflow
       button.navbar-toggler(type="button", data-toggle="collapse", data-target="#navbarsExampleDefault", aria-controls="navbarsExampleDefault", aria-expanded="false", aria-label="Toggle navigation")
         span.navbar-toggler-icon
 
       #navbarsExampleDefault.collapse.navbar-collapse
         ul.navbar-nav.ml-auto
-          li.nav-item
-            a.nav-link(href="/events") events
           li.nav-item
             a.nav-link(href="/users") Users
           if (!currentUser)
@@ -21,3 +19,5 @@
               a.nav-link(href=`/users/${currentUser._id}`) My Profile
             li.nav-item
               a.nav-link(href='/signout') Signout
+            li.nav-item
+              a.nav-link(href="/questions") create event

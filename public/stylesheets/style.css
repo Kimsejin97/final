@@ -33,7 +33,7 @@ a:hover {
   font-family: 'Raleway';
   font-size: 2.5rem;
   margin: 1em 0 0.5em 0;
-  border-bottom: px solid #eee;
+  border-bottom: 1px solid #eee;
   color: #000000; }
 
 .header > .navbar {
@@ -107,7 +107,7 @@ a:hover {
   font-weight: bold;
   color: #0f5ca6; }
 
-.events .content {
+.questions .content {
   max-height: 5em;
   overflow: hidden;
   text-overflow: ellipsis; }
