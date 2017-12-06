@@ -16,6 +16,8 @@ block content
             a.btn.btn-outline-secondary(href=`/questions/${question.id}/edit`) Edit
             |
             a.btn.btn-outline-danger.need-confirm-btn(href=`/questions/${question.id}?_method=delete`) Delete
+            |
+            a.btn.btn-outline-info(href=`/questions/${question.id}/join`) JOIN CHECK
 
     if question.numAnswers > 0
       hr

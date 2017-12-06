@@ -45,6 +45,11 @@ router.get('/:id/edit', needAuth, catchErrors(async (req, res, next) => {
   res.render('questions/edit', {question: question});
 }));
 
+router.get('/:id/join', needAuth, catchErrors(async (req, res, next) => {
+  const question = await Question.findById(req.params.id);
+  res.render('questions/join', {question: question});
+}));
+
 router.get('/:id', catchErrors(async (req, res, next) => {
   const question = await Question.findById(req.params.id).populate('author');
   const answers = await Answer.find({question: question.id}).populate('author');
