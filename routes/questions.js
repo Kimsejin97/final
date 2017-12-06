@@ -25,7 +25,9 @@ router.get('/', catchErrors(async (req, res, next) => {
   if (term) {
     query = {$or: [
       {title: {'$regex': term, '$options': 'i'}},
-      {content: {'$regex': term, '$options': 'i'}}
+      {place: {'$regex': term, '$options': 'i'}},
+      {content1: {'$regex': term, '$options': 'i'}},
+      {content2: {'$regex': term, '$options': 'i'}}
     ]};
   }
   const questions = await Question.paginate(query, {
@@ -48,7 +50,7 @@ router.get('/:id/edit', needAuth, catchErrors(async (req, res, next) => {
 router.get('/:id', catchErrors(async (req, res, next) => {
   const question = await Question.findById(req.params.id).populate('author');
   const answers = await Answer.find({question: question.id}).populate('author');
-  question.numReads++;    // TODO: 동일한 사람이 본 경우에 Read가 증가하지 않도록???
+  question.numReads++;
 
   await question.save();
   res.render('questions/show', {question: question, answers: answers});
@@ -62,8 +64,14 @@ router.put('/:id', catchErrors(async (req, res, next) => {
     return res.redirect('back');
   }
   question.title = req.body.title;
-  question.content = req.body.content;
   question.place = req.body.place;
+  question.start_date = req.body.start_date;
+  question.finish_date = req.body.finish_date;
+  question.content1 = req.body.content1;
+  question.host = req.body.host;
+  question.content2 = req.body.content2;
+  question.fee = req.body.fee;
+  question.pay = req.body.pay;
   question.tags = req.body.tags.split(" ").map(e => e.trim());
 
   await question.save();
@@ -82,7 +90,16 @@ router.post('/', needAuth, catchErrors(async (req, res, next) => {
   var question = new Question({
     title: req.body.title,
     author: user._id,
-    content: req.body.content,
+    place: req.body.place,
+    start_date: req.body.start_date,
+    finish_date: req.body.finish_date,
+    start_time: req.body.start_time,
+    finish_time: req.body.finish_time,
+    content1: req.body.content1,
+    host: req.body.host,
+    content2: req.body.content2,
+    fee: req.body.fee,
+    pay: req.body.pay,
     tags: req.body.tags.split(" ").map(e => e.trim()),
   });
   await question.save();

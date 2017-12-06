@@ -1,8 +1,35 @@
 .content= question.content
+
+.table
+table.table
+  tr
+    th
+  .span 장소:
+    span=question.place
+    th
+  .span 시작 날짜:
+    span= moment(question.start_date).format('YYYY-MM-DD HH시')
+    th
+  .span 끝나는 날짜:
+    span= moment(question.finish_date).format('YYYY-MM-DD HH시')
+    th
+  .span 이벤트 상세 설명:
+    span= question.content1
+    th
+  .span 주최 이름:
+    span= question.host
+    th
+  .span 주최 상세 설명:
+    span= question.content2
+    th
+  .span 가격:
+    span= question.fee
+    span= question.pay
+
 .tags.badges
   each tag in question.tags
     span.badge.badge-phill.badge-secondary= tag
-    | 
+    |
 .row
   .col-sm
     .numbers.
@@ -13,5 +40,5 @@
     .author
       | asked on #{moment(question.createdAt).format('YYYY-MM-DD')}
       if question.author
-        | 
-        | by #[a(href=`/users/${question.author.id}`)= question.author.name] 
+        |
+        | by #[a(href=`/users/${question.author.id}`)= question.author.name]

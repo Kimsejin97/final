@@ -1,35 +1,32 @@
 .form-group
   label(for='title') Title:
-  input.form-control(type='title', placeholder='Enter event name', value=question.title)
+  input.form-control(type='text', name="title", placeholder='Enter event name', value=question.title)
 .form-group
-  label(for='event_des') place:
-  textarea.form-control(name="content", rows="5")= question.place
+  label(for='place') place:
+  input.form-control(type="text", name="place", value=question.place)
 .form-group
-  label(for='event_des') Event description:
-  textarea.form-control(name="content", rows="5")= question.content1
+  label(for='start_date') start date:
+  input.form-control(type="datetime-local", name="start_date", value=question.start_date)
 .form-group
-  label(for='Host_name') Host name:
-  input(type='text', value=question.host)
+  label(for='finish_date') finish date:
+  input.form-control(type="datetime-local", name="finish_date", value=question.finish_date)
 .form-group
-  label(for='msg') host description:
-  textarea.form-control(name="content", rows="5")= question.content2
+  label(for='content1') Event description:
+  input.form-control(type='text',name="content1", value=question.content1)
 .form-group
-  label(for='category') category:
-  br
-  select= question.category
-    option(value='Music') Music
-    option(value='Food & Drink') Food &amp; Drink
-    option(value='Classes') Classes
-    option(value='Arts') Arts
-    option(value='Parties') Parties
-    option(value='Networking') Networking
+  label(for='host') Host name:
+  input.form-control(type='text', name="host", value=question.host)
+.form-group
+  label(for='content2') host description:
+  input.form-control(type='text', name="content2", value=question.content2)
 .form-group
   label(for='fee') fee:
-  br
   label(for='free') free
-  input(type='radio', value=question.free, name="fee")
+  input(type='radio', value="free", name="fee", onclick="div_OnOff(this.value, 'toggle');")
   label(for='pay') pay
-  input(type='radio', value=question.pay, name="fee")
-  .form-group
-    label(for="tags") Tags
-    input.form-control(type="text", name="tags", placeholder="tags separated by spaces", value=question.tags ? question.tags.join(" ") : "")
+  input(type='radio', value="pay", name="fee", onclick="div_OnOff(this.value, 'toggle');")
+  #toggle
+    input.form-control(id="toggle", type="text", name="pay", value=question.pay, placeholder='Enter Price')
+.form-group
+  label(for="tags") Tags
+  input.form-control(type="text", name="tags", placeholder="tags separated by spaces", value=question.tags ? question.tags.join(" ") : "")
