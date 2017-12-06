@@ -25,9 +25,7 @@ router.get('/', catchErrors(async (req, res, next) => {
   if (term) {
     query = {$or: [
       {title: {'$regex': term, '$options': 'i'}},
-      {place: {'$regex': term, '$options': 'i'}},
-      {content1: {'$regex': term, '$options': 'i'}},
-      {content2: {'$regex': term, '$options': 'i'}}
+      {content: {'$regex': term, '$options': 'i'}},
     ]};
   }
   const questions = await Question.paginate(query, {
